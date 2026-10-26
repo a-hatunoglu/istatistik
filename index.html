@@ -61,10 +61,10 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
       width: 100%;
-      max-width: 1000px;
+      max-width: 1180px;
       margin-bottom: 2.5rem;
     }
     .portal-card {
@@ -95,6 +95,7 @@
     }
     .portal-card.blue::before { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
     .portal-card.purple::before { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+    .portal-card.emerald::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
     
     .card-icon {
       font-size: 2.5rem;
@@ -148,6 +149,13 @@
     }
     .btn-purple:hover {
       background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669, #0d9488);
+      color: #fff;
+    }
+    .btn-emerald:hover {
+      background: linear-gradient(135deg, #10b981, #059669);
     }
     .info-box {
       max-width: 1000px;
@@ -213,6 +221,27 @@
       </div>
       <div class="card-btn btn-purple">
         Sözel Masterclass'a Başla →
+      </div>
+    </a>
+
+    <!-- Card 3: Sıfırdan Olasılık & Dağılımlar (Bölüm 5-6-7) -->
+    <a href="olasilik_sifirdan_zirveye.html" class="portal-card emerald">
+      <div>
+        <div class="card-icon">🎲</div>
+        <div class="card-title">0'dan Zirveye: Olasılık & Dağılımlar</div>
+        <div class="card-desc">
+          Bölüm 5-6-7 özel modülü: 0 bilgiye sahip olanlar için günlük hayat analojileri, serpiştirilmiş mikro kavrama soruları ve 4 genel test.
+        </div>
+        <ul class="card-features">
+          <li>🧩 Feynman Tekniği ile Bilişsel Yüksüz Anlatım</li>
+          <li>⚡ Konu Aralarında Anında Çözümlü Mini Sorular</li>
+          <li>📊 Poisson İkizleri, Binom & Hipergeometrik Farkı</li>
+          <li>📈 Uniform Dikdörtgeni & Z Çan Eğrisi (%68-%95)</li>
+          <li>🧮 Canlı Z-Skoru Çizici & 4 Kapsamlı Tarama Testi</li>
+        </ul>
+      </div>
+      <div class="card-btn btn-emerald">
+        Olasılık Modülüne Başla →
       </div>
     </a>
   </div>
