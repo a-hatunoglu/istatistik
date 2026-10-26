@@ -1,46 +1,39 @@
-# MMT230 İstatistik ve Olasılık - Ara Sınav Simülasyonu & Sözel Masterclass
+# MMT230 İstatistik ve Olasılık - Kapsamlı Sınav & Öğretim Portalı
 
-Bu depo, **MMT230 İstatistik ve Olasılık** dersi ara sınavına hazırlık için geliştirilmiş tam teşekküllü, etkileşimli bir web sınav ve eğitim portalıdır.
+Bu depo, **MMT230 İstatistik ve Olasılık** dersi ara sınavına hazırlık için geliştirilmiş tam teşekküllü, etkileşimli ve tek sayfa mimarisinde (SPA) çalışan bir web eğitim portalıdır.
 
 ## 🚀 Canlı Siteye Erişim (GitHub Pages)
-GitHub Pages aktif edildiğinde web tarayıcınız veya tabletiniz (iPad / Safari) üzerinden doğrudan erişebilirsiniz:
-`https://<kullanici-adiniz>.github.io/<repo-adiniz>/`
+Tüm modüllere tek bir sayfadan (`index.html`) doğrudan erişebilirsiniz:
+👉 **https://a-hatunoglu.github.io/istatistik/**
 
 ---
 
-## 📦 İçerik ve Modüller
+## 📦 İçerik ve Modüller (Tek Çatı Altında `index.html`)
 
-### 1. 🎯 Ana Sınav Simülasyonu (`sinav_simulasyonu.html`)
-* **Gerçek Sınav Formatı:** 20 çoktan seçmeli soru, 75 dakika sınav süresi.
-* **4 Farklı Sınav Modülü:** Toplam 80 soru (Deneme 1 Standart, Deneme 2 Hesaplama, Deneme 3 İleri Düzey, Deneme 4 Soru Çözüm Uygulamaları 1-2-3 Özel).
-* **Değerlendirme Motoru:** 4 yanlış 1 doğruyu götürür (Net Puan = Doğru - Yanlış/4, 100 üzerinden başarı notu).
-* **Dahili Normal Dağılım Z Tablosu:** Modal penceresinde anında arama ve $\Phi(z)$ kümülatif olasılık sorgulama.
-* **Dahili Bilimsel Hesap Makinesi:** Faktöriyel ($n!$), kombinasyon ($nCr$), üs ($x^y$), karekök, parantezli işlemler.
-* **Resmi Formül Kağıdı:** Sınavda dağıtılacak formüller modal olarak elinizin altında.
-* **Detaylı İnceleme Modu:** Sınav bittiğinde her sorunun adım adım tam çözümü ve hoca slaytlarındaki karşılığı.
+Tüm modüller alt sayfalara bölünmeden doğrudan `index.html` içinde toplanmıştır. Üst gezinme çubuğundan modüller arasında anında geçiş yapabilirsiniz:
 
-### 2. 🧠 Sözel Masterclass & Özel Sınav (`sozel_kavramlar_egitimi.html`)
-* **Hafıza & Öğretim Teknikleri (Mnemonic):**
-  * **NOİR Kuralı:** 4 Ölçme Düzeyi (Nominal, Ordinal, Interval/Sahte Sıfır, Ratio/Mutlak Sıfır).
-  * **P-P ve Ö-İ Kuralı:** Parametre = Popülasyon, İstatistik = Örneklem.
-  * **Uçurtma Kuyruğu Metaforu:** Sağa çarpık ($\text{Mod} < \text{Medyan} < \text{Ortalama}$), Sola çarpık ($\text{Ortalama} < \text{Medyan} < \text{Mod}$).
-  * **Poisson Tek Yumurta İkizleri:** $\mu = \sigma^2 = \lambda$.
-  * **İadeli (Binom) vs İadesiz (Hipergeometrik).**
-  * **Çizgide Alan Yoktur:** Sürekli dağılımlarda tek nokta olasılığı $P(X=c) = 0$.
-  * **Chebyshev (Joker) vs Ampirik Kural.**
-* **20 Soruluk Sözel Özel Sınavı:** Sözel tuzakları ölçen, anında hafıza notu ve çözüm gösteren interaktif quiz.
+### 1. 🎲 0'dan Zirveye: Olasılık & Dağılımlar Akademisi (Bölüm 5-6-7)
+* **Sıfır Bilgilere Özel Anlatım:** Feynman tekniğiyle günlük hayat analojileri (elma sepeti, iskambil destesi, madeni para).
+* **Harf Harf Formül Şifreleri:** $P(A \text{ ve } B) = P(A) \times P(B|A)$, dik çizginin ($|$) şart anlamı, formüllerdeki her bir sembolün detaylı Türkçe açıklaması.
+* **10 Mikro Kavrama Sorusu:** Konu anlatımı aralarında anında çözümlü ve dönüt veren sorular.
+* **4 Genel Tarama Testi:** Bölüm 5, 6, 7 ve Karma olmak üzere 20 özgün soru ve dinamik puanlama.
 
-### 3. 🎲 0'dan Zirveye: Olasılık & Dağılımlar Akademisi (`olasilik_sifirdan_zirveye.html`)
-* **0 Bilgiye Özel Pedagojik Tasarım (Feynman Tekniği):** Olasılıktan hiç anlamayanlar için günlük hayat analojileriyle sıfırdan adım adım anlatım.
-* **Serpiştirilmiş Mikro Kavrama Soruları:** Her teorik konudan hemen sonra anında interaktif soru ve pedagojik dönüt.
-* **Bölüm 5, 6 ve 7 Kapsamı:** Temel kurallar, Bayes teoremi, Binom, Poisson, Hipergeometrik, Sürekli Üniform ve Normal Dağılım / Z-Dönüşümü.
-* **Karar Sihirbazı & Canlı Z-Skoru Görselleştirici:** Sorunun hangi dağılıma ait olduğunu bulduran interaktif karar ağacı ve canlı grafik aracı.
-* **4 Genel Tarama Testi:** 20 soruluk kapsamlı testler ve anında puanlama.
+### 2. 🎯 Ana Sınav Simülatörü (4 Deneme - 80 Soru)
+* **Gerçek Sınav Formatı:** 20 soru, 75 dakika geri sayım sayacı.
+* **4 Farklı Deneme Modülü:** Deneme 1 (Standart), Deneme 2 (Hesaplama), Deneme 3 (İleri Düzey), Deneme 4 (Uygulama 1-2-3 Özel Hoca Soruları).
+* **Değerlendirme Motoru:** 4 yanlış 1 doğruyu götürür (Net Puan = Doğru - Yanlış/4, 100 üzerinden not).
+* **Detaylı İnceleme Modu:** Sınav bittiğinde tüm soruların adım adım tam çözümü ve hoca slaytlarındaki karşılığı.
 
-### 4. 📑 Detaylı Çözüm Kitapçıkları (Markdown)
-* `OLASILIK_SIFIRDAN_ZIRVEYE_BOLUM_5_6_7.md`: Bölüm 5-6-7 sıfırdan zirveye pedagojik ders notu ve soru çözümleri.
-* `SINAV_REHBERI_VE_DENEMELER.md`: 80 sorunun tamamının adım adım yazılı çözümü, formüller ve Z tablosu.
-* `SOZEL_KONULAR_OGRETIM_VE_OZEL_SINAV.md`: Mnemonic eğitim metodu ve sözel sınav kitapçığı.
+### 3. 🧠 Sözel Masterclass & Quiz (20 Soru)
+* **Hafıza Teknikleri (Mnemonic):** NOİR kuralı, Uçurtma kuyruğu çarpıklığı, Poisson ikizleri ($\mu = \sigma^2 = \lambda$), Çizgide alan yoktur ($P(X=c)=0$), Chebyshev vs Ampirik.
+* **20 Soruluk Sözel Özel Sınavı:** Anında cevap ve hafıza ipucu gösteren interaktif quiz.
+
+### 4. 🧭 Karar Sihirbazı & Canlı Z Grafiği
+* **"Hangi Dağılım?" Karar Ağacı:** Sorunun hangi dağılıma ait olduğunu bulduran 3 adımlı interaktif sihirbaz.
+* **Canlı Z-Skoru Görselleştirici:** Ortalama ve standart sapmaya göre çan eğrisini ve olasılık alanını anında çizen canlı canvas aracı.
+
+### 5. 📜 Resmi Formül Kağıdı, Z-Tablosu & Bilimsel Hesap Makinesi
+* Sınavda dağıtılan resmi formül kağıdı (Bölüm 1-7), interaktif aramalı Z-tablosu ve bilimsel hesap makinesi araçları.
 
 ---
 *MMT230 İstatistik ve Olasılık ders materyalleri (Bölüm 1-7 ve Uygulama 1-2-3) esas alınarak hazırlanmıştır.*
