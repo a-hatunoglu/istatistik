@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0'dan Zirveye: Olasılık & Dağılımlar Akademisi | Bölüm 5-6-7 Özel</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-card: rgba(17, 24, 39, 0.95);
+      --border: #23324d;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.3);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --cyan: #06b6d4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.14) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.65;
+      padding-bottom: 5rem;
+    }
+    header.app-header {
+      background: rgba(11, 17, 32, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      padding: 0.85rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--cyan), var(--accent));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+    .brand-text p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .btn-home {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      color: #93c5fd;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-home:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 1.75rem auto;
+      padding: 0 1rem;
+    }
+    .hero-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .hero-p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      max-width: 950px;
+      line-height: 1.65;
+    }
+    .sub-nav-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .sub-nav-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sub-nav-pill:hover {
+      color: #fff;
+      background: rgba(30, 41, 59, 0.8);
+    }
+    .sub-nav-pill.active {
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff;
+      border-color: #a78bfa;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .academy-section {
+      display: none;
+    }
+    .academy-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .topic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .topic-badge {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+    .topic-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .narrative-p {
+      color: #e2e8f0;
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
+    }
+    .formula-master-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(24, 34, 53, 0.95));
+      border: 1.5px solid #3b82f6;
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin: 1.75rem 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .formula-display {
+      background: rgba(11, 17, 32, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #60a5fa;
+      text-align: center;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+    .breakdown-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .breakdown-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fcd34d;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .breakdown-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+    .breakdown-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.5;
+    }
+    .sym-badge {
+      background: rgba(59, 130, 246, 0.25);
+      border: 1px solid #60a5fa;
+      color: #93c5fd;
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .sym-badge.pipe {
+      background: rgba(244, 63, 94, 0.25);
+      border-color: #fb7185;
+      color: #fda4af;
+    }
+    .sym-badge.op {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: #fcd34d;
+      color: #fde68a;
+    }
+    .example-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .example-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #6ee7b7;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .example-desc {
+      font-size: 0.92rem;
+      color: #d1fae5;
+      line-height: 1.6;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .dual-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .dual-card.left { border-top: 4px solid var(--primary); }
+    .dual-card.right { border-top: 4px solid var(--accent); }
+    .dual-card.emerald { border-top: 4px solid var(--success); }
+    .dual-card.amber { border-top: 4px solid var(--warning); }
+    .dual-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .micro-quiz {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1.5px solid #475569;
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .micro-quiz.answered-correct { border-color: var(--success); }
+    .micro-quiz.answered-wrong { border-color: var(--danger); }
+    .micro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .micro-q-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .micro-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .micro-opt-btn {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 0.75rem 1rem;
+      border-radius: 9px;
+      font-size: 0.92rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      transition: all 0.2s;
+    }
+    .micro-opt-btn:hover:not(:disabled) {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .micro-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--success) !important;
+      color: #a7f3d0 !important;
+      font-weight: 700;
+    }
+    .micro-opt-btn.wrong {
+      background: rgba(239, 68, 68, 0.25) !important;
+      border-color: var(--danger) !important;
+      color: #fca5a5 !important;
+    }
+    .micro-feedback {
+      display: none;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-top: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .micro-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+    .tests-header-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .test-switch-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .test-switch-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .exam-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .exam-opt-item {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .exam-opt-item:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: #64748b;
+    }
+    .exam-opt-item.selected {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: var(--primary);
+    }
+    .exam-opt-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #64748b;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .exam-opt-item.selected .exam-opt-circle {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+    .exam-opt-item.review-correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: var(--success) !important;
+      color: #a7f3d0 !important;
+    }
+    .exam-opt-item.review-wrong {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: var(--danger) !important;
+      color: #fca5a5 !important;
+    }
+    .badge-ch {
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #c4b5fd;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .btn {
+      padding: 0.65rem 1.25rem;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: #cbd5e1; }
+    .btn-outline:hover { background: rgba(30, 41, 59, 0.8); color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-box">
+        <div class="brand-icon">🎲</div>
+        <div class="brand-text">
+          <h1>0'dan Zirveye Olasılık & Dağılımlar Akademisi</h1>
+          <p>MMT230 • Bölüm 5-6-7 Özel Öğretim & Soru Bankası</p>
+        </div>
+      </a>
+
+      <div class="header-nav">
+        <a href="index.html" class="btn-home">
+          <span>🏠</span> Ana Portala Dön
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- TAB 1: 0'DAN ZİRVEYE OLASILIK & DAĞILIMLAR AKADEMİSİ -->
+    
+      
+      <!-- Hero Banner -->
+      <div class="hero-box">
+        <div class="hero-badge">
+          <span>✨</span> SIFIR BİLGİ İLE BAŞLAYANLARA ÖZEL PEDAGOJİK MASTERCLASS
+        </div>
+        <h2 class="hero-title">Olasılık ve Dağılımları Mantığıyla Öğreniyoruz!</h2>
+        <p class="hero-p">
+          Slaytları daha önce hiç okumamış, olasılıktan hiç anlamayan bir öğrencinin kafasını karıştırmadan; günlük hayat analojileri (Feynman tekniği), formüllerdeki her bir harfin ve sembolün Türkçe şifreleri, adım adım somut örnekler ve anında kavrama sorularıyla hazırlanan özel modül.
+        </p>
+      </div>
+
+      <!-- Sub Navigation Bar -->
+      <div class="sub-nav-bar">
+        <button id="pillB5" class="sub-nav-pill active" onclick="switchAcademySubTab('secBolum5')">
+          <span>📚</span> Bölüm 5: Temel Olasılık & Kurallar
+        </button>
+        <button id="pillB6" class="sub-nav-pill" onclick="switchAcademySubTab('secBolum6')">
+          <span>📊</span> Bölüm 6: Kesikli Dağılımlar (Binom, Poisson, Hipergeometrik)
+        </button>
+        <button id="pillB7" class="sub-nav-pill" onclick="switchAcademySubTab('secBolum7')">
+          <span>📈</span> Bölüm 7: Sürekli Dağılımlar (Üniform, Normal & Z)
+        </button>
+        <button id="pillTests" class="sub-nav-pill" onclick="switchAcademySubTab('secTests')">
+          <span>🏆</span> 4 Genel Tarama Testi (20 Soru)
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SUB-SECTION 1: BÖLÜM 5 TEMEL OLASILIK       -->
+      <!-- ========================================== -->
+      <div id="secBolum5" class="academy-section active">
+        
+        <!-- Topic 1: Olasılık Nedir ve Harfler Ne Anlama Gelir? -->
+        <div class="topic-card">
+          <div class="topic-header">
+            <span class="topic-badge">ADIM 1</span>
+            <h3 class="topic-title">Olasılık Nedir? Harfler ve Semboller Ne Anlama Gelir?</h3>
+          </div>
+          
+          <p class="narrative-p">
+            Olasılık, günlük hayatta sürekli kullandığımız bir kavramdır: <em>"Yarın yağmur yağma ihtimali %70"</em>, <em>"Tuttuğum takımın maçı kazanma şansı yüksek"</em> veya <em>"Zarı atınca 6 gelme şansı 6'da 1"</em> dediğimizde aslında olasılık hesabı yapıyoruz. Matematikçiler bu konuşmaları formüle dökerken bazı harf ve semboller kullanırlar. Sıfırdan başlıyorsan bilmen gereken ilk 4 temel terim şunlardır:
+          </p>
+
+          <div class="grid-2">
+            <div class="dual-card left">
+              <div class="dual-title"><span>🧪</span> 1. Deney (Experiment)</div>
+              <p style="color:#cbd5e1; font-size:0.92rem;">
+                Sonucu önceden kesin olarak bilinemeyen, rastlantıya bağlı işlem. <strong>Örnek:</strong> Bir madeni parayı havaya atmak, tavla zarını masaya fırlatmak veya torbadan bir bilye çekmek birer deneydir.
+              </p>
+            </div>
+            <div class="dual-card right">
+              <div class="dual-title"><span>🎯</span> 2. Çıktı (Outcome)</div>
+              <p style="color:#cbd5e1; font-size:0.92rem;">
+                Deneyin sonucunda ortaya çıkan tek bir durum. <strong>Örnek:</strong> Parayı attığında "Yazı" gelmesi veya zarı attığında üst yüze "4" gelmesi birer çıktıdır.
+              </p>
+            </div>
+            <div class="dual-card emerald">
+              <div class="dual-title"><span>🌌</span> 3. Örneklem Uzayı (S)</div>
+              <p style="color:#cbd5e1; font-size:0.92rem;">
+                O deneyde ortaya çıkabilecek <strong>TÜM</strong> olası sonuçların oluşturduğu evren/küme. <strong>Örnek:</strong> Bir zarı attığında gelebilecek her şey S = {1, 2, 3, 4, 5, 6}'dır. Toplam 6 eleman vardır.
+              </p>
+            </div>
+            <div class="dual-card amber">
+              <div class="dual-title"><span>⭐</span> 4. Olay (A)</div>
+              <p style="color:#cbd5e1; font-size:0.92rem;">
+                Örneklem uzayının içinden bizim ilgilendiğimiz özel bir durum/alt küme. <strong>Örnek:</strong> "Zarın çift sayı gelmesi olayı" A = {2, 4, 6} kümesidir (3 eleman).
+              </p>
+            </div>
+          </div>
+
+          <!-- Formula Master Card 1: Classical Probability -->
+          <div class="formula-master-card">
+            <div class="formula-display">
+              P(A) = İstenen Durum Sayısı / Tüm Olası Durumların Sayısı
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü (Sıfır Bilgilere Özel)</div>
+              <ul class="breakdown-list">
+                <li>
+                  <span class="sym-badge">P</span>
+                  <div><strong>Probability (Olasılık):</strong> İngilizce olasılık kelimesinin baş harfidir. Bir şeyin gerçekleşme şansını/ihtimalini 0 ile 1 arasında bir ondalık veya yüzde olarak ifade eder.</div>
+                </li>
+                <li>
+                  <span class="sym-badge">(A)</span>
+                  <div><strong>Olayın İsmi:</strong> Parantezin içindeki harf ilgilendiğimiz olayı temsil eder. Örneğin A = "Zarın 6 gelmesi" ise, <code>P(A)</code> yazısı <em>"Zarın 6 gelme olasılığı"</em> diye okunur.</div>
+                </li>
+                <li>
+                  <span class="sym-badge">Pay (Üst)</span>
+                  <div><strong>Bizi mutlu eden sonuçların adedi:</strong> Zarda çift sayıları istiyorsak (2, 4, 6) pay kısmına <strong>3</strong> yazarız.</div>
+                </li>
+                <li>
+                  <span class="sym-badge">Payda (Alt)</span>
+                  <div><strong>Olabilecek HER ŞEYİN toplam adedi:</strong> Zarda 6 yüz olduğu için payda kısmına <strong>6</strong> yazarız. Sonuç: 3 / 6 = 0.50 (%50).</div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">⚖️ Olasılığın Değişmez 2 Anayasası</div>
+              <div class="example-desc">
+                • <strong>Kural 1:</strong> Bir olasılık ASLA negatif olamaz ve ASLA 1'den (%100'den) büyük olamaz. Daima <strong>0 ≤ P(A) ≤ 1</strong> aralığındadır.<br>
+                • <strong>P = 0 (%0):</strong> İmkansız Olay (Örn: 6 yüzlü normal bir zarı atıp 9 gelmesi).<br>
+                • <strong>P = 1 (%100):</strong> Kesin Olay (Örn: Zarı atınca 10'dan küçük bir sayı gelmesi).<br>
+                • <strong>Kural 2:</strong> Bir deneydeki tüm olası durumların olasılıkları toplamı daima tam olarak <strong>1.00 (%100)</strong> olmak zorundadır!
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Master Card 2: Complement Rule -->
+          <div class="formula-master-card" style="border-color:#10b981;">
+            <div class="formula-display" style="color:#6ee7b7;">
+              P(A') = 1 - P(A) &nbsp;&nbsp;➔&nbsp;&nbsp; (Tümleyen Kuralı: "Tersini Bulma")
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li>
+                  <span class="sym-badge" style="border-color:#10b981; color:#a7f3d0;">A'</span>
+                  <div><strong>A'nın Tümleyeni (Olumsuz Durum):</strong> A olayının <strong>GERÇEKLEŞMEMESİ</strong> durumudur. (A = Yağmur yağması ise, A' = Yağmur yağmamasıdır).</div>
+                </li>
+                <li>
+                  <span class="sym-badge op">1 - P(A)</span>
+                  <div><strong>Neden 1'den çıkarıyoruz?</strong> Çünkü evrende o şey ya olur ya da olmaz! İkisinin toplamı kesinlikle 1'dir (%100). Yağmur yağma şansı 0.30 (%30) ise, yağmama şansı 1 - 0.30 = 0.70 (%70)'tir.</div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">💡 Sınav Taktik Notu ("En Az 1 Tane" Sorularında Hayat Kurtarır!)</div>
+              <div class="example-desc">
+                Hoca sınavda <em>"En az 1 tanesinin sağlam olma olasılığı..."</em> diye sorduğunda; 1 tane sağlam, 2 tane sağlam, 3 tane sağlam diye tek tek saatlerce hesaplama! Tersten git:<br>
+                <strong>P(En az 1 sağlam) = 1 - P(HİÇ SAĞLAM OLMAMASI / HEPSİNİN BOZUK OLMASI)</strong>.<br>
+                Tek bir çıkarma işlemiyle soruyu 10 saniyede bitirirsin!
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 1 -->
+          <div class="micro-quiz" id="mq1">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 1 (TÜMLEYEN KURALI)</div>
+            <div class="micro-q-text">
+              Bir makinenin ürettiği parçanın kusurlu olma olasılığı 0.08'dir. Rastgele seçilen bir parçanın KUSURSUZ (SAĞLAM) olma olasılığı kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(1, 0)">A) 0.08</button>
+              <button class="micro-opt-btn" onclick="checkMicro(1, 1)">B) 0.92</button>
+              <button class="micro-opt-btn" onclick="checkMicro(1, 2)">C) -0.08</button>
+              <button class="micro-opt-btn" onclick="checkMicro(1, 3)">D) 1.08</button>
+            </div>
+            <div class="micro-feedback" id="mfb1"></div>
+          </div>
+
+        </div>
+
+        <!-- Topic 2: VEYA (+) vs VE (x) Kuralı -->
+        <div class="topic-card">
+          <div class="topic-header">
+            <span class="topic-badge">ADIM 2</span>
+            <h3 class="topic-title">İki Büyük Bağlaç: VEYA (+) ile VE (×) Ayrımı</h3>
+          </div>
+
+          <p class="narrative-p">
+            İstatistik sınavında öğrencilerin en çok puan kaybettiği yer burasıdır. Türkçe bir soru kökü okuduğunda kafanda şu kural canlanmalıdır:
+          </p>
+
+          <div class="grid-2">
+            <div class="dual-card left">
+              <div class="dual-title"><span>➕</span> "VEYA" Görünce Neden TOPLARIZ (+)?</div>
+              <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;">
+                "VEYA" bağlacı seçenekleri artırır, sana alternatif sunar, şansını <strong>BÜYÜTÜR</strong>!<br>
+                <em>"Bir zar attım; 1 VEYA 6 gelirse oyunu kazanacağım."</em><br>
+                Her iki sonuç da beni mutlu eder. Seçeneklerim çoğaldığı için olasılıkları <strong>TOPLARIM</strong>.<br>
+                • 1 gelme şansı = 1/6<br>
+                • 6 gelme şansı = 1/6<br>
+                • Kazanma şansım = 1/6 + 1/6 = 2/6 = 1/3 (Şansım 2 katına çıktı!).
+              </p>
+            </div>
+
+            <div class="dual-card right">
+              <div class="dual-title"><span>✖️</span> "VE" Görünce Neden ÇARPARIZ (×)?</div>
+              <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;">
+                "VE" bağlacı şartları <strong>ZORLAŞTIRIR</strong>, gerçekleşme ihtimalini <strong>KÜÇÜLTÜR</strong>!<br>
+                <em>"İki zar atıyorum; 1. zar 6 gelecek VE 2. zar da 6 gelecek."</em><br>
+                İki zor şartı birden aynı anda tutturmak zorundasın. Şansın azalır! Matematikte olasılıkları (0 ile 1 arasındaki kesirli sayıları) küçültmek için <strong>ÇARPARIZ</strong>.<br>
+                • 1. zarın 6 gelmesi = 1/6<br>
+                • 2. zarın 6 gelmesi = 1/6<br>
+                • İkisinin birden 6 gelmesi = 1/6 × 1/6 = <strong>1/36</strong> (Şansım 36'da 1'e düştü!).
+              </p>
+            </div>
+          </div>
+
+          <!-- TOPLAMA KURALI MASTER CARD -->
+          <div class="formula-master-card" style="border-color:#f59e0b;">
+            <div class="formula-display" style="color:#fcd34d;">
+              P(A veya B) = P(A) + P(B) - P(A ve B)
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü & Neden Çıkarıyoruz?</div>
+              <ul class="breakdown-list">
+                <li>
+                  <span class="sym-badge op">P(A veya B)</span>
+                  <div>A olayının VEYA B olayının (en az birinin) gerçekleşme olasılığıdır. Kümelerdeki Birleşim (A ∪ B) sembolüdür.</div>
+                </li>
+                <li>
+                  <span class="sym-badge op">P(A) + P(B)</span>
+                  <div>İki olayın tek başlarına olma şanslarının toplamı.</div>
+                </li>
+                <li>
+                  <span class="sym-badge op">- P(A ve B)</span>
+                  <div>
+                    <strong>EN BÜYÜK TUZAK: Neden çıkarıyoruz?</strong><br>
+                    Eğer A ve B olaylarının ortak bir kesişimi varsa (Ayrık değillerse), dümdüz topladığında o ortak elemanı <strong>İKİ KERE</strong> saymış olursun! Çift sayımı düzeltmek için ortak kesişimi bir kez çıkarırız!
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">🃏 Somut İskambil Kartı Örneği</div>
+              <div class="example-desc">
+                52 kartlık desteden rastgele 1 kart çekiyoruz: <strong>"Kartın Papaz VEYA Kupa olma olasılığı nedir?"</strong><br>
+                • Destede 4 tane Papaz vardır ➔ P(Papaz) = 4/52.<br>
+                • Destede 13 tane Kupa kartı vardır ➔ P(Kupa) = 13/52.<br>
+                • <strong>DİKKAT:</strong> "Kupa Papazı" hem bir Papazdır hem de bir Kupadır! İki grupta da yer alır. Dümdüz toplarsak (4/52 + 13/52 = 17/52) Kupa Papazı'nı çift saymış oluruz.<br>
+                • Bu yüzden kesişimi (1/52) çıkarırız:<br>
+                <strong>P(Papaz veya Kupa) = 4/52 + 13/52 - 1/52 = 16/52 ≈ 0.3077 (%30.77)</strong>.<br>
+                <em>(Eğer olaylar Ayrık olsaydı, yani aynı anda olması imkansız olsaydı -örneğin kartın hem Maça hem Kupa olması imkansızdır- kesişim 0 olurdu ve dümdüz toplardık: 13/52 + 13/52 = 26/52).</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 2 -->
+          <div class="micro-quiz" id="mq2">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 2 (TOPLAMA KURALI)</div>
+            <div class="micro-q-text">
+              Bir sınıftaki öğrencilerin %60'ı İngilizce, %40'ı Almanca bilmektedir. Her iki dili de bilenlerin oranı %20 olduğuna göre, rastgele seçilen bir öğrencinin İngilizce VEYA Almanca dillerinden en az birini bilme olasılığı nedir?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(2, 0)">A) 1.00 (%100)</button>
+              <button class="micro-opt-btn" onclick="checkMicro(2, 1)">B) 0.80 (%80)</button>
+              <button class="micro-opt-btn" onclick="checkMicro(2, 2)">C) 0.60 (%60)</button>
+              <button class="micro-opt-btn" onclick="checkMicro(2, 3)">D) 0.20 (%20)</button>
+            </div>
+            <div class="micro-feedback" id="mfb2"></div>
+          </div>
+
+        </div>
+
+        <!-- Topic 3: ÇARPMA KURALI VE KOŞULLU OLASILIK (KULLANICININ SORUDUĞU ODAK KONU!) -->
+        <div class="topic-card" style="border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(59, 130, 246, 0.25);">
+          <div class="topic-header">
+            <span class="topic-badge" style="background:#2563eb; color:#fff;">KRİTİK ODAK</span>
+            <h3 class="topic-title">Çarpma Kuralı & Koşullu Olasılık: P(A ve B) = P(A) × P(B|A)</h3>
+          </div>
+
+          <p class="narrative-p" style="font-size:1.05rem;">
+            İşte kullanıcımızın sorduğu o meşhur formül! İlk bakışta karmaşık ve korkutucu görünen bu formül, mantığını bir kez anladığında dünyadaki en eğlenceli ve mantıklı kuraldır. Adım adım parçalayalım:
+          </p>
+
+          <!-- The Master Formula Breakdown -->
+          <div class="formula-master-card" style="border-color:#38bdf8;">
+            <div class="formula-display" style="font-size:1.45rem;">
+              P(A ve B) = P(A) × P(B|A)
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü (Bütün Sembollerin Sırrı)</div>
+              <ul class="breakdown-list">
+                <li>
+                  <span class="sym-badge">P(A ve B)</span>
+                  <div><strong>Kesişim / İki Olayın Birlikte Gerçekleşmesi:</strong> Hem birinci olayın (A) HEM DE hemen ardından ikinci olayın (B) art arda gerçekleşme olasılığıdır.</div>
+                </li>
+                <li>
+                  <span class="sym-badge">P(A)</span>
+                  <div><strong>Birinci Olayın Başlama Şansı:</strong> Henüz hiçbir şey olmamışken, ilk aşamada A olayının tek başına meydana gelme olasılığıdır.</div>
+                </li>
+                <li>
+                  <span class="sym-badge op">×</span>
+                  <div><strong>Çarpma İşlemi:</strong> İki aşamalı şartı birbirine bağlar. Şans daraldığı için çarpıyoruz.</div>
+                </li>
+                <li>
+                  <span class="sym-badge pipe">| (DİK ÇİZGİ)</span>
+                  <div>
+                    <strong>BU FORMÜLÜN EN ÖNEMLİ SEMBOLÜDÜR!</strong><br>
+                    Matematikte bu dik çizgi Türkçede <strong>"ŞARTIYLA / KOŞULUYLA / BİLİNDİĞİNE GÖRE"</strong> anlamına gelir.<br>
+                    • Çizginin <strong>SAĞINDAKİ</strong> harf (A) = <em>Zaten gerçekleşmiş, olup bitmiş olan durumdur!</em><br>
+                    • Çizginin <strong>SOLUNDAKİ</strong> harf (B) = <em>Şimdi bu yeni oluşan şartlar altında merak ettiğimiz olaydır!</em>
+                  </div>
+                </li>
+                <li>
+                  <span class="sym-badge pipe">P(B|A)</span>
+                  <div>
+                    <strong>Koşullu Olasılık İfadesi:</strong> Aynen şöyle sesli okunur:<br>
+                    <em>"A olayı ZATEN GERÇEKLEŞTİKTEN SONRA, ortaya çıkan bu yeni durumda B olayının gerçekleşme olasılığı!"</em>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Concrete Apple Basket Analogy -->
+            <div class="example-box" style="background:rgba(59, 130, 246, 0.12); border-color:#3b82f6;">
+              <div class="example-title" style="color:#93c5fd; font-size:1.05rem;">
+                🍎 Somut Elma Sepeti Analojisi (Feynman Tekniği)
+              </div>
+              <div class="example-desc" style="color:#e2e8f0; font-size:0.95rem;">
+                Gözünün önüne bir sepet getir. Sepette toplam <strong>10 tane elma</strong> var:<br>
+                • <strong>4 tanesi Kırmızı</strong><br>
+                • <strong>6 tanesi Yeşil</strong><br><br>
+                Şimdi sepetten art arda <strong>2 tane elma</strong> çekeceğiz ve çektiğimiz elmayı <strong>GERİ SEPETE KOYMAYACAĞIZ</strong> (İadesiz Çekim / Bağımlı Olay).<br>
+                <strong>Soru: İki elmanın da KIRMIZI gelme olasılığı nedir?</strong><br><br>
+
+                <strong>1. Adım: İlk elmayı çekiyoruz (A Olayı):</strong><br>
+                Sepette 10 elma var, 4'ü kırmızı. İlk elmanın kırmızı gelme şansı:<br>
+                ➔ <strong>P(A) = 4 / 10</strong><br><br>
+
+                <strong>2. Adım: Elmayı aldık, kenara koyduk! Sepete ne oldu? (Şart A):</strong><br>
+                İlk elma kırmızı çıktı ve onu kenara ayırdık. Şimdi sepetin içine bakıyoruz:<br>
+                • Sepette artık 10 değil, <strong>9 elma</strong> kaldı!<br>
+                • Kırmızı elma sayısı da 4 değil, <strong>3 elmaya</strong> düştü!<br>
+                İşte tam olarak bu kalan sepet durumu matematikte <code>P(B|A)</code> sembolüdür:<br>
+                ➔ <strong>P(B|A) = 3 / 9</strong> (İlk elma kırmızı çıktıktan sonra, ikincinin kırmızı olma şansı).<br><br>
+
+                <strong>3. Adım: İki aşamayı çarpıyoruz:</strong><br>
+                ➔ <strong>P(A ve B) = P(A) × P(B|A) = (4 / 10) × (3 / 9) = 12 / 90 ≈ 0.133 (%13.3)</strong>.<br>
+                İşte tüm formülün arkasındaki hayat mantığı bundan ibarettir!
+              </div>
+            </div>
+
+            <!-- Independent comparison -->
+            <div class="example-box" style="background:rgba(139, 92, 246, 0.12); border-color:#8b5cf6; margin-top:1rem;">
+              <div class="example-title" style="color:#c4b5fd; font-size:1.05rem;">
+                🔄 Peki Çektiğimiz Elmayı Geri Sepete Atsaydık Ne Olurdu? (Bağımsız Olaylar)
+              </div>
+              <div class="example-desc" style="color:#e2e8f0; font-size:0.95rem;">
+                Eğer çektiğimiz elmayı geri sepete atsaydık (İadeli Çekim):<br>
+                • Sepetteki elma sayısı hiç azalmayacaktı (yine 10 elma ve 4 kırmızı kalacaktı).<br>
+                • Yani birinci elmayı çekmiş olmamız, ikinci elmanın şansını <strong>HİÇBİR ŞEKİLDE ETKİLEMEYECEKTİ</strong>!<br>
+                • İşte iki olay birbirini hiç etkilemiyorsa bunlara <strong>BAĞIMSIZ OLAYLAR</strong> denir.<br>
+                • Bağımsız olaylarda <code>P(B|A)</code> şartı ortadan kalkar, dümdüz <code>P(B)</code> olur:<br>
+                ➔ <strong>P(A ve B) = P(A) × P(B) = (4 / 10) × (4 / 10) = 16 / 100 = 0.16 (%16)</strong>.
+              </div>
+            </div>
+          </div>
+
+          <!-- Koşullu Olasılık Formülü -->
+          <div class="formula-master-card" style="border-color:#ec4899;">
+            <div class="formula-display" style="color:#f472b6;">
+              P(B|A) = P(A ve B) / P(A) &nbsp;&nbsp;➔&nbsp;&nbsp; Koşullu Olasılık Formülü
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Neden Paydada P(A) Var? Mantığı Nedir?</div>
+              <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;">
+                Soru sana <em>"A olayının gerçekleştiği bilindiğine göre..."</em> dediği anda, senin için eski koskoca evren yok oldu! Artık elindeki tek gerçek A olayıdır. Dolayısıyla senin tüm dünyan (paydan) sadece <strong>P(A)</strong>'dır.<br>
+                Peki bu A dünyasının içinde B olayına ait olan kısım neresidir? İkisinin kesiştiği ortak bölgedir (<strong>P(A ve B)</strong>).<br>
+                Bu yüzden formül daima: <strong>Ortak Kesişim / Bilinen Şartın Olasılığı</strong>dır!
+              </p>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 3 -->
+          <div class="micro-quiz" id="mq3">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 3 (KOŞULLU ÇARPMA KURALI)</div>
+            <div class="micro-q-text">
+              Bir kutuda 3 bozuk, 7 sağlam olmak üzere 10 lamba vardır. Kutudan geri konulmaksızın (iadesiz) arka arkaya 2 lamba seçiliyor. İkisinin de BOZUK çıkma olasılığı P(A ve B) nedir?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(3, 0)">A) (3/10) × (3/10) = 9/100 = 0.09</button>
+              <button class="micro-opt-btn" onclick="checkMicro(3, 1)">B) (3/10) × (2/9) = 6/90 = 1/15 ≈ 0.067</button>
+              <button class="micro-opt-btn" onclick="checkMicro(3, 2)">C) (3/10) + (2/9) = 47/90</button>
+              <button class="micro-opt-btn" onclick="checkMicro(3, 3)">D) 3/10 = 0.30</button>
+            </div>
+            <div class="micro-feedback" id="mfb3"></div>
+          </div>
+
+          <!-- Topic 4: Bayes Teoremi -->
+          <div style="margin-top:2rem;">
+            <h4 style="font-size:1.2rem; color:#fff; margin-bottom:0.75rem;">🩺 Bayes Teoremi (Sebep-Sonuç Dedektifliği)</h4>
+            <p class="narrative-p">
+              Bayes teoremi geriye doğru çalışan bir dedektiftir. Bir sonuç gördük (Örneğin: Bir hastanın tahlil sonucu POZİTİF çıktı). Soru şu: <strong>Bu kişinin tahlili pozitif çıktı ama gerçekten HASTA olma şansı nedir? Test yanılmış (yalancı pozitif) olabilir mi?</strong>
+            </p>
+            <div class="formula-master-card" style="border-color:#a855f7;">
+              <div class="formula-display" style="color:#d8b4fe; font-size:1.15rem;">
+                P(Hasta | Pozitif) = [ P(Hasta) × P(Pozitif | Hasta) ] / P(Tüm Pozitif Sonuçlar)
+              </div>
+              <p style="color:#cbd5e1; font-size:0.9rem; line-height:1.6;">
+                • <strong>Pay (Üst):</strong> Gerçekten hasta olup testin doğru pozitif çıkarma ihtimali.<br>
+                • <strong>Payda (Alt):</strong> Testin pozitif çıktığı TÜM durumlar (Gerçekten hastalar + Sağlıklı olduğu halde testin yanlışlıkla pozitif çıkardığı kişiler).
+              </p>
+            </div>
+          </div>
+
+          <!-- Topic 5: Permütasyon vs Kombinasyon -->
+          <div style="margin-top:2rem;">
+            <h4 style="font-size:1.2rem; color:#fff; margin-bottom:0.75rem;">🔢 Sayma Kuralları: Permütasyon vs Kombinasyon Ayrımı</h4>
+            <div class="grid-2">
+              <div class="dual-card left">
+                <div class="dual-title"><span>🔐</span> PERMÜTASYON P(n, r)</div>
+                <p style="color:#cbd5e1; font-size:0.92rem; line-height:1.5;">
+                  <strong>SIRA VEYA UNVAN ÖNEMLİDİR!</strong><br>
+                  • Telefon şifresi girme (1-2-3 ile 3-2-1 farklı şifredir).<br>
+                  • Yarışmada ilk 3 derece (Altın, Gümüş, Bronz madalya).<br>
+                  • Başkan, Başkan Yardımcısı, Sekreter seçimi.<br>
+                  <strong>Formül:</strong> P(n, r) = n! / (n - r)!
+                </p>
+              </div>
+              <div class="dual-card right">
+                <div class="dual-title"><span>🍕</span> KOMBİNASYON C(n, r)</div>
+                <p style="color:#cbd5e1; font-size:0.92rem; line-height:1.5;">
+                  <strong>SIRA ÖNEMSİZDİR, SADECE GRUP SEÇİLİR!</strong><br>
+                  • Pizzaya 3 malzeme seçme (Zeytini önce ya da sonra atman fark etmez).<br>
+                  • 10 kişiden 4 kişilik gezi grubu seçme.<br>
+                  • Torbadan 3 bilye seçme.<br>
+                  <strong>Formül:</strong> C(n, r) = n! / [ r! · (n - r)! ]
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 4 -->
+          <div class="micro-quiz" id="mq4">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 4 (SAYMA KURALLARI)</div>
+            <div class="micro-q-text">
+              10 kişilik bir mühendislik ekibinden 1 Proje Lideri ve 1 Lider Yardımcısı seçilecektir (görevler bellidir). Kaç farklı seçim yapılabilir?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(4, 0)">A) Kombinasyon: C(10, 2) = 45</button>
+              <button class="micro-opt-btn" onclick="checkMicro(4, 1)">B) Permütasyon: P(10, 2) = 10 × 9 = 90</button>
+              <button class="micro-opt-btn" onclick="checkMicro(4, 2)">C) 10 + 2 = 12</button>
+              <button class="micro-opt-btn" onclick="checkMicro(4, 3)">D) 10! = 3.628.800</button>
+            </div>
+            <div class="micro-feedback" id="mfb4"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SUB-SECTION 2: BÖLÜM 6 KESİKLİ DAĞILIMLAR    -->
+      <!-- ========================================== -->
+      <div id="secBolum6" class="academy-section">
+        
+        <div class="topic-card">
+          <div class="topic-header">
+            <span class="topic-badge">BÖLÜM 6</span>
+            <h3 class="topic-title">Kesikli Dağılımlar (Binom, Poisson, Hipergeometrik)</h3>
+          </div>
+
+          <p class="narrative-p">
+            <strong>Rassal Değişken (X):</strong> Sayısal bir değer alan tesadüfi olaydır. <strong>Kesikli</strong> demek, tane tane sayılabilen tam sayılar demektir (0, 1, 2, 3...). Örneğin bir bankaya gelen müşteri sayısı, üretilen kusurlu vida adedi. Yarım insan veya 2.4 tane vida olamaz!
+          </p>
+
+          <!-- Beklenen Değer ve Varyans -->
+          <div class="formula-master-card">
+            <div class="formula-display">
+              Beklenen Değer: μ = E(X) = Σ [x · P(x)]
+            </div>
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li>
+                  <span class="sym-badge">E(X) = μ</span>
+                  <div><strong>Beklenen Değer (Expected Value):</strong> Olasılık ağırlıklı ortalama demektir. Her bir olası sonucu kendi olma şansıyla çarpıp toplarsın. Kumarhanede uzun vadede kazanıp kaybedeceğin ortalama miktarı verir.</div>
+                </li>
+                <li>
+                  <span class="sym-badge op">Varyans (σ²)</span>
+                  <div><strong>Risk ve Dağılma Ölçüsü:</strong> σ² = Σ [x² · P(x)] - μ². Standart sapma ise σ = √(σ²)'dir.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 5 -->
+          <div class="micro-quiz" id="mq5">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 5 (BEKLENEN DEĞER)</div>
+            <div class="micro-q-text">
+              Bir piyango biletinde %20 ihtimalle 50 TL, %80 ihtimalle 0 TL kazanıyorsunuz. Bu biletin beklenen getirisi E(X) kaç TL'dir?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(5, 0)">A) 50 TL</button>
+              <button class="micro-opt-btn" onclick="checkMicro(5, 1)">B) 25 TL</button>
+              <button class="micro-opt-btn" onclick="checkMicro(5, 2)">C) 10 TL &nbsp;(50 × 0.20 + 0 × 0.80 = 10)</button>
+              <button class="micro-opt-btn" onclick="checkMicro(5, 3)">D) 0 TL</button>
+            </div>
+            <div class="micro-feedback" id="mfb5"></div>
+          </div>
+
+          <!-- 1. BİNOM DAĞILIMI -->
+          <div class="formula-master-card" style="border-color:#3b82f6;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
+              <h4 style="font-size:1.3rem; color:#fff;">🎯 1. Binom Dağılımı (Başarı vs Başarısızlık)</h4>
+              <span class="badge-ch">Parametreler: n ve p</span>
+            </div>
+            <p class="narrative-p">
+              <strong>Ne Zaman Kullanılır?</strong> Bir deneyi <strong>n defa</strong> tekrarlıyorsun. Her denemede sadece <strong>İKİ SONUÇ</strong> var: Başarı (p) veya Başarısızlık (1 - p). Ve çekilişler birbirinden bağımsızdır (iadeli).
+            </p>
+
+            <div class="formula-display">
+              P(X = k) = C(n, k) · p^k · (1 - p)^(n - k)
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li><span class="sym-badge">n</span> <div>Toplam kaç deneme yaptık? (Örn: Parayı 10 kez attık).</div></li>
+                <li><span class="sym-badge">k</span> <div>Bu n denemeden kaç tanesinin başarılı olmasını istiyoruz? (Örn: 3 kez Yazı gelsin).</div></li>
+                <li><span class="sym-badge">C(n, k)</span> <div>Kombinasyon katsayısı. Bu 3 başarı, 10 denemenin hangi sıralamalarıyla gelebilir?</div></li>
+                <li><span class="sym-badge">p^k</span> <div>k tane başarının arka arkaya gerçekleşme olasılığı.</div></li>
+                <li><span class="sym-badge">(1 - p)^(n - k)</span> <div>Geriye kalan (n - k) tanesinin başarısız olma olasılığı.</div></li>
+              </ul>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">⚡ Sınavda Zaman Kazandıran Binom Kestirmeleri</div>
+              <div class="example-desc">
+                • <strong>Ortalama (Beklenen Değer):</strong> μ = n · p<br>
+                • <strong>Varyans:</strong> σ² = n · p · (1 - p)<br>
+                • <strong>Standart Sapma:</strong> σ = √[ n · p · (1 - p) ]
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 6 -->
+          <div class="micro-quiz" id="mq6">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 6 (BİNOM PARAMETRELERİ)</div>
+            <div class="micro-q-text">
+              Bir üretim bandında parçaların kusurlu olma olasılığı p = 0.10'dur. İncelenen n = 50 parçada beklenen kusurlu parça sayısı (μ) ve varyansı (σ²) kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(6, 0)">A) μ = 5, σ² = 4.5</button>
+              <button class="micro-opt-btn" onclick="checkMicro(6, 1)">B) μ = 50, σ² = 10</button>
+              <button class="micro-opt-btn" onclick="checkMicro(6, 2)">C) μ = 5, σ² = 5</button>
+              <button class="micro-opt-btn" onclick="checkMicro(6, 3)">D) μ = 0.5, σ² = 0.05</button>
+            </div>
+            <div class="micro-feedback" id="mfb6"></div>
+          </div>
+
+          <!-- 2. POISSON DAĞILIMI -->
+          <div class="formula-master-card" style="border-color:#8b5cf6;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
+              <h4 style="font-size:1.3rem; color:#fff;">📞 2. Poisson Dağılımı (Nadir Olaylar)</h4>
+              <span class="badge-ch" style="background:rgba(139,92,246,0.25); color:#c4b5fd;">Tek Parametre: λ (Lambda)</span>
+            </div>
+            <p class="narrative-p">
+              <strong>Ne Zaman Kullanılır?</strong> Belirli bir <strong>ZAMAN veya ALAN diliminde</strong> gerçekleşen nadir olaylar.<br>
+              <em>"1 saatte çağrı merkezine gelen telefon sayısı", "1 sayfadaki yazım hatası sayısı", "1 haftadaki iş kazası sayısı".</em>
+            </p>
+
+            <div class="formula-display">
+              P(X = x) = [ e^(-λ) · λ^x ] / x!
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li><span class="sym-badge">λ (Lambda)</span> <div>Birim zamandaki ortalama olay sayısı (Örn: saatte ortalama 3 çağrı ise λ = 3).</div></li>
+                <li><span class="sym-badge">e</span> <div>Euler matematik sabiti (e ≈ 2.71828). Hesap makinesinde hazır tuşu vardır.</div></li>
+                <li><span class="sym-badge">x</span> <div>Merak ettiğimiz olay adedi (Örn: Tam 2 çağrı gelmesi).</div></li>
+                <li><span class="sym-badge">x!</span> <div>Faktöriyel (Örn: 2! = 2 × 1 = 2).</div></li>
+              </ul>
+            </div>
+
+            <div class="example-box" style="border-color:#8b5cf6; background:rgba(139,92,246,0.1);">
+              <div class="example-title" style="color:#c4b5fd;">👯 POISSON'UN TEK YUMURTA İKİZLERİ KURALI (Hocanın En Sevdiği Soru!)</div>
+              <div class="example-desc" style="color:#e2e8f0;">
+                Poisson dağılımının dünyadaki en benzersiz özelliği şudur:<br>
+                <strong>ORTALAMASI DA, VARYANSI DA BİRBİRİNE EŞİTTİR: μ = σ² = λ!</strong><br>
+                Standart sapması ise <strong>σ = √λ</strong>'dır.<br>
+                <em>Soru kökünde "Ortalaması ve varyansı birbirine eşit olan dağılım hangisidir?" diye sorulursa gözün kapalı Poisson'u işaretle!</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 7 -->
+          <div class="micro-quiz" id="mq7">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 7 (POISSON İKİZLERİ)</div>
+            <div class="micro-q-text">
+              Bir acil servise saatte ortalama 4 hasta gelmektedir (Poisson dağılımı). Bu acil servise gelen hasta sayısının standart sapması (σ) kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(7, 0)">A) 4</button>
+              <button class="micro-opt-btn" onclick="checkMicro(7, 1)">B) 16</button>
+              <button class="micro-opt-btn" onclick="checkMicro(7, 2)">C) 2 &nbsp;(Varyans = 4 ise Standart Sapma = √4 = 2)</button>
+              <button class="micro-opt-btn" onclick="checkMicro(7, 3)">D) 1</button>
+            </div>
+            <div class="micro-feedback" id="mfb7"></div>
+          </div>
+
+          <!-- 3. HİPERGEOMETRİK DAĞILIM -->
+          <div class="formula-master-card" style="border-color:#ec4899;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
+              <h4 style="font-size:1.3rem; color:#fff;">📦 3. Hipergeometrik Dağılım (İadesiz Çekim)</h4>
+              <span class="badge-ch" style="background:rgba(236,72,153,0.25); color:#f472b6;">Sonlu Kitle + İadesiz</span>
+            </div>
+            <p class="narrative-p">
+              <strong>Ne Zaman Kullanılır?</strong> <strong>SONLU</strong> bir gruptan <strong>İADESİZ</strong> çekim yapıldığında! Çekilen parça geri konmadığı için her çekilişte başarı olasılığı p değişir!
+            </p>
+
+            <div class="formula-display" style="font-size:1.2rem;">
+              P(X = k) = [ C(M, k) · C(N - M, n - k) ] / C(N, n)
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li><span class="sym-badge">N</span> <div>Kutudaki TOPLAM eleman sayısı.</div></li>
+                <li><span class="sym-badge">M</span> <div>Kutudaki TOPLAM hedef/başarı sayısı (Örn: kutudaki kusurlu parçalar).</div></li>
+                <li><span class="sym-badge">n</span> <div>Kutudan seçtiğimiz örneklem sayısı.</div></li>
+                <li><span class="sym-badge">k</span> <div>Seçtiklerimizden kaç tanesi hedef olsun istiyoruz?</div></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SUB-SECTION 3: BÖLÜM 7 SÜREKLİ DAĞILIMLAR    -->
+      <!-- ========================================== -->
+      <div id="secBolum7" class="academy-section">
+        
+        <div class="topic-card">
+          <div class="topic-header">
+            <span class="topic-badge">BÖLÜM 7</span>
+            <h3 class="topic-title">Sürekli Dağılımlar (Üniform, Normal & Z-Skoru)</h3>
+          </div>
+
+          <!-- Kural: Çizgide Alan Yoktur -->
+          <div class="example-box" style="border-color:#ef4444; background:rgba(239,68,68,0.1); margin-bottom:1.5rem;">
+            <div class="example-title" style="color:#f87171; font-size:1.1rem;">
+              🚫 SINAVIN 1 NUMARALI SÖZEL TUZAĞI: "ÇİZGİDE ALAN YOKTUR!" (P(X = c) = 0)
+            </div>
+            <div class="example-desc" style="color:#fecaca; font-size:0.95rem;">
+              Sürekli değişkenlerde (boy, kilo, süre) tek bir kesin noktanın olasılığı <strong>DAİMA SIFIRDIR: P(X = c) = 0</strong>!<br>
+              Bir insanın boyunun tam olarak 175.0000000000000... cm olması imkansızdır. Olasılık sadece iki değer ARASINDAKİ ALAN ile hesaplanır.<br>
+              <strong>SONUÇ:</strong> Sürekli dağılımlarda <code>P(X ≤ 5)</code> ile <code>P(X < 5)</code> birbirine <strong>TAMAMEN EŞİTTİR!</strong> Eşitlik çizgisinin olması hiçbir şeyi değiştirmez!
+            </div>
+          </div>
+
+          <!-- 1. Sürekli Üniform Dağılım -->
+          <div class="formula-master-card" style="border-color:#3b82f6;">
+            <h4 style="font-size:1.3rem; color:#fff; margin-bottom:1rem;">📐 1. Sürekli Üniform Dağılım (Dikdörtgen Alanı)</h4>
+            <p class="narrative-p">
+              Belirli bir [a, b] aralığında her değerin şansı birbirine eşittir. Grafiği kusursuz bir <strong>DİKDÖRTGENDİR</strong>!
+            </p>
+
+            <div class="formula-display">
+              Yükseklik: h = 1 / (b - a) &nbsp;&nbsp;|&nbsp;&nbsp; Alan: P(x₁ ≤ X ≤ x₂) = (x₂ - x₁) / (b - a)
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li><span class="sym-badge">a ve b</span> <div>Dağılımın başladığı en küçük değer (a) ve bittiği en büyük değer (b).</div></li>
+                <li><span class="sym-badge">Alan</span> <div>Dikdörtgenin alanı = Taban × Yükseklik = (Mesafe) / (Toplam Aralık Genişliği).</div></li>
+                <li><span class="sym-badge">μ ve σ²</span> <div>Ortalama μ = (a + b) / 2 &nbsp;|&nbsp; Varyans σ² = (b - a)² / 12.</div></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 8 -->
+          <div class="micro-quiz" id="mq8">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 8 (ÜNİFORM ALAN HESABI)</div>
+            <div class="micro-q-text">
+              Bir otobüs durağında bekleme süresi 0 ile 20 dakika arasında üniform dağılmaktadır. Bir yolcunun 15 dakikadan FAZLA bekleme olasılığı kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(8, 0)">A) 15 / 20 = 0.75</button>
+              <button class="micro-opt-btn" onclick="checkMicro(8, 1)">B) (20 - 15) / (20 - 0) = 5 / 20 = 0.25</button>
+              <button class="micro-opt-btn" onclick="checkMicro(8, 2)">C) 1 / 20 = 0.05</button>
+              <button class="micro-opt-btn" onclick="checkMicro(8, 3)">D) 0.50</button>
+            </div>
+            <div class="micro-feedback" id="mfb8"></div>
+          </div>
+
+          <!-- 2. Normal Dağılım ve Z-Skoru -->
+          <div class="formula-master-card" style="border-color:#10b981;">
+            <h4 style="font-size:1.3rem; color:#fff; margin-bottom:1rem;">🔔 2. Normal Dağılım (Çan Eğrisi) & Standart Z-Skoru</h4>
+            <p class="narrative-p">
+              İstatistiğin kraliçesidir. Ortalamaya göre mükemmel simetriktir. Tam tepe noktasında <strong>Ortalama = Medyan = Mod</strong> bulunur. Altında kalan toplam alan <strong>1.00 (%100)</strong>'dür. Sağ yarısı 0.50, sol yarısı 0.50'dir.
+            </p>
+
+            <div class="example-box" style="margin-bottom:1.25rem;">
+              <div class="example-title">📊 Ampirik Kural (%68 - %95 - %99.7)</div>
+              <div class="example-desc">
+                • <strong>μ ± 1σ:</strong> Verilerin yaklaşık <strong>%68.26</strong>'sını kapsar.<br>
+                • <strong>μ ± 2σ:</strong> Verilerin yaklaşık <strong>%95.44</strong>'ünü kapsar.<br>
+                • <strong>μ ± 3σ:</strong> Verilerin yaklaşık <strong>%99.74</strong>'ünü kapsar.
+              </div>
+            </div>
+
+            <div class="formula-display" style="color:#6ee7b7; font-size:1.4rem;">
+              Z = (X - μ) / σ &nbsp;&nbsp;➔&nbsp;&nbsp; "Ortalamadan Kaç Adım Uzaktayım?"
+            </div>
+
+            <div class="breakdown-box">
+              <div class="breakdown-title">🔍 Harf Harf Şifre Çözücü</div>
+              <ul class="breakdown-list">
+                <li><span class="sym-badge" style="border-color:#10b981; color:#a7f3d0;">Z</span> <div><strong>Standart Sapma Birimi:</strong> Bir X değerinin ortalamadan kaç standart sapma uzakta olduğunu gösteren skor.</div></li>
+                <li><span class="sym-badge">X</span> <div>Bizim ölçtüğümüz gerçek değer (Örn: Aldığımız sınav notu: 85).</div></li>
+                <li><span class="sym-badge">μ</span> <div>Sınıfın anakütle ortalaması (Örn: Sınav ortalaması: 70).</div></li>
+                <li><span class="sym-badge">σ</span> <div>Standart sapma (Örn: σ = 10).</div></li>
+                <li><span class="sym-badge op">Hesap</span> <div>Z = (85 - 70) / 10 = +1.50 ➔ <em>"Ben ortalamanın 1.5 adım ÜSTÜNDEYİM!"</em> demektir.</div></li>
+              </ul>
+            </div>
+
+            <div class="example-box" style="background:rgba(59,130,246,0.1); border-color:#3b82f6;">
+              <div class="example-title" style="color:#93c5fd;">📖 Z-Tablosu Nasıl Okunur? Adım Adım Rehber</div>
+              <div class="example-desc" style="color:#cbd5e1;">
+                Tablo bize daima sol kuyruktan z değerine kadar olan kümülatif alanı <strong>Φ(z) = P(Z ≤ z)</strong> verir.<br>
+                1. <strong>Küçüktür Sorulursa (P(Z ≤ 1.50)):</strong> Tablodan 1.5 satırı ile .00 sütununun kesişimini doğrudan oku: <strong>0.9332 (%93.32)</strong>.<br>
+                2. <strong>Büyüktür Sorulursa (P(Z > 1.50)):</strong> Bütün alan 1 olduğu için 1'den çıkar: <strong>1 - 0.9332 = 0.0668 (%6.68)</strong>.<br>
+                3. <strong>İki Değer Arası Sorulursa (P(0 < Z < 1.50)):</strong> Büyük alan eksi küçük alan: <strong>Φ(1.50) - Φ(0) = 0.9332 - 0.5000 = 0.4332</strong>.<br>
+                4. <strong>Negatif Z Simetrisi:</strong> Φ(-z) = 1 - Φ(z). Örneğin Φ(-1.50) = 1 - 0.9332 = 0.0668.
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Quiz 9 -->
+          <div class="micro-quiz" id="mq9">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 9 (Z-DÖNÜŞÜMÜ)</div>
+            <div class="micro-q-text">
+              Ortalaması μ = 100 ve standart sapması σ = 15 olan bir IQ testinde 130 puan alan bir kişinin Z-skoru kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(9, 0)">A) Z = +2.0 &nbsp;( (130 - 100) / 15 = 30 / 15 = +2 )</button>
+              <button class="micro-opt-btn" onclick="checkMicro(9, 1)">B) Z = -2.0</button>
+              <button class="micro-opt-btn" onclick="checkMicro(9, 2)">C) Z = +1.5</button>
+              <button class="micro-opt-btn" onclick="checkMicro(9, 3)">D) Z = +30</button>
+            </div>
+            <div class="micro-feedback" id="mfb9"></div>
+          </div>
+
+          <!-- Micro Quiz 10 -->
+          <div class="micro-quiz" id="mq10">
+            <div class="micro-badge">⚡ KAVRAMA SORUSU 10 (Z TABLOSU OKUMA)</div>
+            <div class="micro-q-text">
+              Z tablosunda Z = 1.00 için Φ(1.00) = 0.8413 olduğuna göre, standart normal bir değişkenin 1.00'den BÜYÜK olma olasılığı P(Z > 1.00) kaçtır?
+            </div>
+            <div class="micro-opts">
+              <button class="micro-opt-btn" onclick="checkMicro(10, 0)">A) 0.8413</button>
+              <button class="micro-opt-btn" onclick="checkMicro(10, 1)">B) 1 - 0.8413 = 0.1587</button>
+              <button class="micro-opt-btn" onclick="checkMicro(10, 2)">C) -0.8413</button>
+              <button class="micro-opt-btn" onclick="checkMicro(10, 3)">D) 0.5000</button>
+            </div>
+            <div class="micro-feedback" id="mfb10"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SUB-SECTION 4: 4 GENEL TARAMA TESTİ        -->
+      <!-- ========================================== -->
+      <div id="secTests" class="academy-section">
+        
+        <div class="tests-header-box">
+          <div>
+            <h3 style="font-size:1.3rem; color:#fff; margin-bottom:0.3rem;">🏆 4 Kapsamlı Olasılık Tarama Testi</h3>
+            <p style="color:#94a3b8; font-size:0.88rem;">Öğrendiğiniz tüm Bölüm 5-6-7 konularını pekiştirecek 20 özgün soru</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button id="btnProbTest1" class="test-switch-btn active" onclick="loadProbTest(1)">Test 1 (Bölüm 5)</button>
+            <button id="btnProbTest2" class="test-switch-btn" onclick="loadProbTest(2)">Test 2 (Bölüm 6)</button>
+            <button id="btnProbTest3" class="test-switch-btn" onclick="loadProbTest(3)">Test 3 (Bölüm 7)</button>
+            <button id="btnProbTest4" class="test-switch-btn" onclick="loadProbTest(4)">Test 4 (Genel Karma)</button>
+          </div>
+        </div>
+
+        <!-- Prob Test Active Card -->
+        <div id="probTestCard" class="topic-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.75rem;">
+            <span id="probTestQNum" style="color:#38bdf8; font-weight:800; font-size:0.9rem;">SORU 1 / 5</span>
+            <span id="probTestTopic" class="badge-ch">Konu Başlığı</span>
+          </div>
+          <div id="probTestQText" style="font-size:1.15rem; font-weight:600; color:#fff; line-height:1.6; margin-bottom:1.5rem;"></div>
+          <div id="probTestOpts" class="exam-opts"></div>
+          <div id="probTestFeedback" class="micro-feedback"></div>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; pt-4; border-top:1px solid var(--border); padding-top:1rem;">
+            <button id="btnProbPrev" class="btn btn-outline" onclick="probTestPrev()">← Önceki</button>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn btn-outline" onclick="checkProbTestAnswer()">💡 Çözümü Göster</button>
+              <button id="btnProbNext" class="btn btn-primary" onclick="probTestNext()">Sonraki →</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    
+  </main>
+
+  <script>
+    // Micro-Quizzes Data
+    const microQuizData = {
+      1: {
+        correct: 1,
+        fb: "✅ <strong>Tebrikler!</strong> Tümleyen kuralı: P(Kusursuz) = 1 - P(Kusurlu) = 1 - 0.08 = <strong>0.92 (%92)</strong>."
+      },
+      2: {
+        correct: 1,
+        fb: "✅ <strong>Doğru!</strong> P(İngilizce veya Almanca) = P(İng) + P(Alm) - P(Kesişim) = 0.60 + 0.40 - 0.20 = <strong>0.80 (%80)</strong>."
+      },
+      3: {
+        correct: 1,
+        fb: "✅ <strong>Harika!</strong> İadesiz çekim: 1. bozuk: 3/10. Kenara ayırdık; kutuda 9 lamba ve 2 bozuk kaldı (şart): 2/9. Sonuç: (3/10) × (2/9) = 6/90 = <strong>1/15 ≈ 0.067</strong>."
+      },
+      4: {
+        correct: 1,
+        fb: "✅ <strong>Harika!</strong> Roller (Lider ve Yardımcı) farklı olduğu için sıra önemlidir ➔ <strong>Permütasyon:</strong> P(10, 2) = 10 × 9 = <strong>90</strong>."
+      },
+      5: {
+        correct: 2,
+        fb: "✅ <strong>Doğru!</strong> E(X) = (50 × 0.20) + (0 × 0.80) = 10 + 0 = <strong>10 TL</strong>."
+      },
+      6: {
+        correct: 0,
+        fb: "✅ <strong>Kusursuz!</strong> Ortalama μ = n · p = 50 × 0.10 = <strong>5</strong>. Varyans σ² = n · p · (1 - p) = 50 × 0.10 × 0.90 = <strong>4.5</strong>."
+      },
+      7: {
+        correct: 2,
+        fb: "✅ <strong>Süper!</strong> Poisson Tek Yumurta İkizleri: Ortalama = Varyans = λ = 4. Standart sapma ise σ = √4 = <strong>2</strong>!"
+      },
+      8: {
+        correct: 1,
+        fb: "✅ <strong>Doğru!</strong> Üniform dikdörtgen alanı: (20 - 15) / (20 - 0) = 5 / 20 = <strong>0.25 (%25)</strong>."
+      },
+      9: {
+        correct: 0,
+        fb: "✅ <strong>Mükemmel!</strong> Z = (X - μ) / σ = (130 - 100) / 15 = 30 / 15 = <strong>+2.0</strong> (Ortalamanın 2 standart sapma üstünde)."
+      },
+      10: {
+        correct: 1,
+        fb: "✅ <strong>Doğru!</strong> Büyüktür sorulduğunda sağ kuyruk: P(Z > 1.00) = 1 - Φ(1.00) = 1 - 0.8413 = <strong>0.1587</strong>."
+      }
+    };
+
+    function checkMicro(qId, selectedIdx) {
+      const data = microQuizData[qId];
+      if (!data) return;
+      const box = document.getElementById('mq' + qId);
+      const fb = document.getElementById('mfb' + qId);
+      const btns = box.querySelectorAll('.micro-opt-btn');
+
+      btns.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === data.correct) btn.classList.add('correct');
+        else if (idx === selectedIdx) btn.classList.add('wrong');
+      });
+
+      fb.innerHTML = data.fb;
+      fb.classList.add('show');
+      if (selectedIdx === data.correct) {
+        box.classList.add('answered-correct');
+      } else {
+        box.classList.add('answered-wrong');
+      }
+    }
+
+    // 4 Screening Tests
+    const probTests = [
+      {
+        id: 1,
+        title: "Test 1: Bölüm 5 Temel Olasılık ve Kurallar",
+        questions: [
+          {
+            q: "Bir zar havaya atıldığında üst yüze 2'den BÜYÜK bir sayı gelme olasılığı kaçtır?",
+            options: ["A) 2/6", "B) 4/6 = 2/3", "C) 3/6", "D) 5/6"],
+            correct: 1,
+            solution: "2'den büyük yüzler: {3, 4, 5, 6} yani 4 durum. Tüm durumlar 6. Olasılık = 4/6 = 2/3."
+          },
+          {
+            q: "A ve B ayrık (mutually exclusive) iki olay ise P(A ve B) kesişim olasılığı kaçtır?",
+            options: ["A) 1.0", "B) P(A) · P(B)", "C) 0.0", "D) 0.5"],
+            correct: 2,
+            solution: "Ayrık olaylar aynı anda asla gerçekleşemez, kesişimleri boştur: P(A ve B) = 0."
+          },
+          {
+            q: "P(A) = 0.70 ise A olayının gerçekleşmeme olasılığı P(A') kaçtır?",
+            options: ["A) 0.30", "B) -0.70", "C) 0.70", "D) 1.70"],
+            correct: 0,
+            solution: "Tümleyen kuralı: P(A') = 1 - P(A) = 1 - 0.70 = 0.30."
+          },
+          {
+            q: "Torbada 5 mavi, 5 kırmızı bilye vardır. İadesiz çekilen 2 bilyenin de MAVİ gelme olasılığı kaçtır?",
+            options: ["A) (5/10) × (5/10) = 0.25", "B) (5/10) × (4/9) = 20/90 ≈ 0.222", "C) 5/9", "D) 1/2"],
+            correct: 1,
+            solution: "1. bilye: 5/10. Kalan durumda 2. bilye: 4/9. Sonuç: (5/10) × (4/9) = 20/90 ≈ 0.222."
+          },
+          {
+            q: "8 kişiden 3 kişilik gezi komitesi kaç farklı şekilde seçilebilir? (Sıra önemsizdir)",
+            options: ["A) P(8, 3) = 336", "B) C(8, 3) = 56", "C) 8 × 3 = 24", "D) 512"],
+            correct: 1,
+            solution: "Sıra önemsiz olduğundan Kombinasyon: C(8, 3) = (8·7·6)/(3·2·1) = 56."
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Test 2: Bölüm 6 Kesikli Dağılımlar",
+        questions: [
+          {
+            q: "Bir zar atıldığında kazanılan para X değişkenidir: X = 0 (P=0.2), X = 10 (P=0.5), X = 20 (P=0.3). Beklenen değer E(X) nedir?",
+            options: ["A) 10.0", "B) 11.0", "C) 15.0", "D) 12.5"],
+            correct: 1,
+            solution: "E(X) = (0 × 0.2) + (10 × 0.5) + (20 × 0.3) = 0 + 5.0 + 6.0 = 11.0."
+          },
+          {
+            q: "Binom dağılımında n = 10 ve p = 0.40 ise varyans σ² kaçtır?",
+            options: ["A) 4.0", "B) 2.4", "C) 1.6", "D) 6.0"],
+            correct: 1,
+            solution: "σ² = n · p · (1 - p) = 10 × 0.40 × 0.60 = 2.4."
+          },
+          {
+            q: "Ortalaması ve varyansı daima birbirine eşit olan dağılım hangisidir?",
+            options: ["A) Binom Dağılımı", "B) Hipergeometrik Dağılım", "C) Poisson Dağılımı", "D) Normal Dağılım"],
+            correct: 2,
+            solution: "Poisson dağılımının tek parametresi λ olup μ = σ² = λ'dır."
+          },
+          {
+            q: "Poisson sürecinde saatte ortalama 2 kaza oluyorsa (λ=2), hiç kaza olmama olasılığı P(X=0) nedir?",
+            options: ["A) 0", "B) e⁻² ≈ 0.1353", "C) 0.50", "D) 2 · e⁻²"],
+            correct: 1,
+            solution: "P(X=0) = (e⁻² · 2⁰) / 0! = e⁻² ≈ 0.1353."
+          },
+          {
+            q: "Sonlu bir gruptan İADESİZ çekiliş yapıldığında başarı olasılığı her adımda değişiyorsa hangi dağılım kullanılır?",
+            options: ["A) Binom", "B) Poisson", "C) Hipergeometrik", "D) Uniform"],
+            correct: 2,
+            solution: "Sonlu kitle + İadesiz çekim = Hipergeometrik dağılım."
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Test 3: Bölüm 7 Sürekli Dağılımlar & Z",
+        questions: [
+          {
+            q: "Sürekli bir rassal değişkende tek bir noktanın olasılığı P(X = 10) nedir?",
+            options: ["A) 0.10", "B) Tam olarak 0", "C) Standart sapmaya bağlıdır", "D) 1.0"],
+            correct: 1,
+            solution: "Çizgide alan yoktur kuralı: Sürekli dağılımlarda tek bir noktanın olasılığı daima 0'dır."
+          },
+          {
+            q: "10 ile 30 arasında sürekli üniform dağılan bir değişkenin ortalaması (μ) kaçtır?",
+            options: ["A) 15", "B) 20", "C) 25", "D) 10"],
+            correct: 1,
+            solution: "μ = (a + b) / 2 = (10 + 30) / 2 = 20."
+          },
+          {
+            q: "Standart normal dağılımın ortalaması (μ) ve standart sapması (σ) nedir?",
+            options: ["A) μ = 0, σ = 1", "B) μ = 1, σ = 0", "C) μ = 100, σ = 15", "D) μ = 0.5, σ = 0.5"],
+            correct: 0,
+            solution: "Standart normal Z dağılımı μ = 0 ve σ = 1 olan özel normal dağılımdır."
+          },
+          {
+            q: "Ortalaması 50, standart sapması 5 olan normal dağılımda X = 60 değerinin Z-skoru nedir?",
+            options: ["A) +1.0", "B) +2.0", "C) +10.0", "D) -2.0"],
+            correct: 1,
+            solution: "Z = (X - μ) / σ = (60 - 50) / 5 = 10 / 5 = +2.0."
+          },
+          {
+            q: "Normal dağılımda Ampirik Kurala göre ortalamanın ±2 standart sapma aralığında verilerin yüzde kaçı yer alır?",
+            options: ["A) %68.26", "B) %95.44", "C) %99.74", "D) %75.00"],
+            correct: 1,
+            solution: "μ ± 1σ ≈ %68.26, μ ± 2σ ≈ %95.44, μ ± 3σ ≈ %99.74."
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Test 4: Bölüm 5-6-7 Genel Karma Tarama",
+        questions: [
+          {
+            q: "Bir dağılımda Mod < Medyan < Ortalama sıralaması varsa bu dağılımın şekli nedir?",
+            options: ["A) Simetrik", "B) Sağa (Pozitif) Çarpık", "C) Sola (Negatif) Çarpık", "D) Bimodal"],
+            correct: 1,
+            solution: "Uçurtma kuyruğu kuralı: Ortalama sağa çekilmişse dağılım sağa çarpıktır."
+          },
+          {
+            q: "Φ(2.00) = 0.9772 olduğuna göre standart normal bir değişkenin 2.00'den BÜYÜK olma olasılığı nedir?",
+            options: ["A) 0.9772", "B) 0.0228", "C) 0.4772", "D) 0.5000"],
+            correct: 1,
+            solution: "P(Z > 2.00) = 1 - Φ(2.00) = 1 - 0.9772 = 0.0228."
+          },
+          {
+            q: "Dağılımın şekli NE OLURSA OLSUN geçerli olan ve k standart sapma aralığındaki en az veri oranını 1 - 1/k² ile veren kural hangisidir?",
+            options: ["A) Ampirik Kural", "B) Chebyshev Teoremi", "C) Bayes Teoremi", "D) Pearson Kuralı"],
+            correct: 1,
+            solution: "Chebyshev Teoremi her türlü dağılımda geçerli olan joker teoremdir."
+          },
+          {
+            q: "Bir madeni para 6 kez atılıyor. Tam 3 kez Tura gelme olasılığı hangi dağılımla hesaplanır?",
+            options: ["A) Poisson", "B) Binom", "C) Hipergeometrik", "D) Üniform"],
+            correct: 1,
+            solution: "Sabit n = 6, başarı p = 0.5, bağımsız denemeler = Binom Dağılımı."
+          },
+          {
+            q: "İki olayın bağımsız olması (independent) durumunda aşağıdakilerden hangisi daima doğrudur?",
+            options: ["A) P(A|B) = P(A)", "B) P(A ve B) = 0", "C) P(A) + P(B) = 1", "D) P(A|B) = 1"],
+            correct: 0,
+            solution: "Bağımsız olaylarda B'nin gerçekleşmesi A'yı hiç etkilemez: P(A|B) = P(A)."
+          }
+        ]
+      }
+    ];
+
+    let currentProbTestId = 1;
+    let currentProbQIdx = 0;
+    let probUserAnswers = {};
+    let probRevealed = {};
+
+    function switchAcademySubTab(secId) {
+      document.querySelectorAll('.academy-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.sub-nav-pill').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(secId);
+      if (target) target.classList.add('active');
+
+      if (secId === 'secBolum5') document.getElementById('pillB5').classList.add('active');
+      if (secId === 'secBolum6') document.getElementById('pillB6').classList.add('active');
+      if (secId === 'secBolum7') document.getElementById('pillB7').classList.add('active');
+      if (secId === 'secTests') document.getElementById('pillTests').classList.add('active');
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
+
+    function loadProbTest(testId) {
+      currentProbTestId = testId;
+      currentProbQIdx = 0;
+      document.querySelectorAll('.test-switch-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btnProbTest' + testId);
+      if (activeBtn) activeBtn.classList.add('active');
+      renderProbQuestion();
+    }
+
+    function renderProbQuestion() {
+      const test = probTests.find(t => t.id === currentProbTestId);
+      if (!test) return;
+      const q = test.questions[currentProbQIdx];
+
+      document.getElementById('probTestQNum').textContent = `SORU ${currentProbQIdx + 1} / ${test.questions.length} (TEST ${currentProbTestId})`;
+      document.getElementById('probTestTopic').textContent = test.title;
+      document.getElementById('probTestQText').textContent = q.q;
+
+      const optsBox = document.getElementById('probTestOpts');
+      optsBox.innerHTML = '';
+
+      const key = `${currentProbTestId}_${currentProbQIdx}`;
+      const userAns = probUserAnswers[key];
+      const isRevealed = probRevealed[key];
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'exam-opt-item';
+        if (userAns === idx) btn.classList.add('selected');
+        if (isRevealed) {
+          if (idx === q.correct) btn.classList.add('review-correct');
+          else if (userAns === idx) btn.classList.add('review-wrong');
+        }
+
+        btn.onclick = () => {
+          if (probRevealed[key]) return;
+          probUserAnswers[key] = idx;
+          renderProbQuestion();
+        };
+
+        btn.innerHTML = `<div class="exam-opt-circle"></div><div>${opt}</div>`;
+        optsBox.appendChild(btn);
+      });
+
+      const fb = document.getElementById('probTestFeedback');
+      if (isRevealed) {
+        fb.innerHTML = `💡 <strong>Çözüm Açıklaması:</strong> ${q.solution}`;
+        fb.classList.add('show');
+      } else {
+        fb.classList.remove('show');
+      }
+
+      document.getElementById('btnProbPrev').disabled = (currentProbQIdx === 0);
+      document.getElementById('btnProbNext').textContent = (currentProbQIdx === test.questions.length - 1) ? 'Testi Bitir 🏁' : 'Sonraki →';
+    }
+
+    function checkProbTestAnswer() {
+      const key = `${currentProbTestId}_${currentProbQIdx}`;
+      probRevealed[key] = true;
+      renderProbQuestion();
+    }
+
+    function probTestNext() {
+      const test = probTests.find(t => t.id === currentProbTestId);
+      if (!test) return;
+      if (currentProbQIdx < test.questions.length - 1) {
+        currentProbQIdx++;
+        renderProbQuestion();
+      } else {
+        let correctCount = 0;
+        test.questions.forEach((q, idx) => {
+          const key = `${currentProbTestId}_${idx}`;
+          if (probUserAnswers[key] === q.correct) correctCount++;
+        });
+        alert(`🎉 ${test.title} Tamamlandı!\nDoğru Sayısı: ${correctCount} / ${test.questions.length}`);
+      }
+    }
+
+    function probTestPrev() {
+      if (currentProbQIdx > 0) {
+        currentProbQIdx--;
+        renderProbQuestion();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProbTest(1);
+    });
+  </script>
+</body>
+</html>
